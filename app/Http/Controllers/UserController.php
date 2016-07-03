@@ -132,4 +132,31 @@ class UserController extends Controller
 
     }
 
+    public function deleteUser(Request $request)
+    {
+        $objRequest = json_decode($request->getContent(), true);
+
+        $intId = $objRequest['id'];
+        $objUser = User::find($intId);
+
+        $objUser->active = 0;
+        $objUser->update();
+
+        if (empty($objUser->user_id)) {
+            $intCode = -1;
+            $strDescription = 'Failure';
+            $arrData = (object)null;
+        } else {
+            $intCode = 1;
+            $strDescription = 'Success';
+            $arrData = array(['user' => $objUser]);
+        }
+
+        $arrResponse['code'] = $intCode;
+        $arrResponse['description'] = $strDescription;
+        $arrResponse['data'] = $arrData;
+
+        return $arrResponse;
+    }
+
 }

@@ -130,4 +130,32 @@ class TagController extends Controller
         return $arrResponse;
 
     }
+
+    public function deleteTag(Request $request)
+    {
+        $objRequest = json_decode($request->getContent(), true);
+
+        $intId = $objRequest['id'];
+        $objTag = Tag::find($intId);
+
+        $objTag->active = 0;
+        $objTag->update();
+
+        if (empty($objTag->tag_id)) {
+            $intCode = -1;
+            $strDescription = 'Failure';
+            $arrData = (object)null;
+        } else {
+            $intCode = 1;
+            $strDescription = 'Success';
+            $arrData = array(['tag' => $objTag]);
+        }
+
+        $arrResponse['code'] = $intCode;
+        $arrResponse['description'] = $strDescription;
+        $arrResponse['data'] = $arrData;
+
+        return $arrResponse;
+    }
+    
 }

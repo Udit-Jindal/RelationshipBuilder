@@ -28,6 +28,8 @@ Route::post('musejam/public/user', 'UserController@createUser');
 
 Route::put('musejam/public/user', 'UserController@updateUser');
 
+Route::delete('musejam/public/user', 'UserController@deleteUser');
+
 /****************************USER-ROUTES[END]*********************/
 
 
@@ -43,6 +45,8 @@ Route::post('musejam/public/tag', 'TagController@createTag');
 
 Route::put('musejam/public/tag', 'TagController@updateTag');
 
+Route::delete('musejam/public/tag', 'TagController@deleteTag');
+
 /****************************TAG-ROUTES[END]*********************/
 
 
@@ -55,5 +59,7 @@ Route::get('musejam/public/relationship/{id}', 'RelationshipController@getRelati
 Route::post('musejam/public/relationship', 'RelationshipController@createRelationship');
 
 Route::put('musejam/public/relationship', 'RelationshipController@updateRelationship');
+
+Route::delete('musejam/public/relationship', 'RelationshipController@deleteRelationship');
 
 /****************************RELATIONSHIP-ROUTES[END]*********************/

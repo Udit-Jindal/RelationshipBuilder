@@ -51,7 +51,6 @@ class RelationshipController extends Controller
         return $arrResponse;
     }
 
-
     public function createRelationship(Request $request)
     {
 
@@ -113,4 +112,32 @@ class RelationshipController extends Controller
         return $arrResponse;
 
     }
+
+    public function deleteRelationship(Request $request)
+    {
+        $objRequest = json_decode($request->getContent(), true);
+
+        $intId = $objRequest['id'];
+        $objRelationship = Relationship::find($intId);
+
+        $objRelationship->active = 0;
+        $objRelationship->update();
+
+        if (empty($objRelationship->relationship_id)) {
+            $intCode = -1;
+            $strDescription = 'Failure';
+            $arrData = (object)null;
+        } else {
+            $intCode = 1;
+            $strDescription = 'Success';
+            $arrData = array(['relationship' => $objRelationship]);
+        }
+
+        $arrResponse['code'] = $intCode;
+        $arrResponse['description'] = $strDescription;
+        $arrResponse['data'] = $arrData;
+
+        return $arrResponse;
+    }
+    
 }
